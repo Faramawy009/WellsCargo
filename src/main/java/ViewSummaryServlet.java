@@ -21,6 +21,7 @@ public class ViewSummaryServlet extends HttpServlet
 			return;
 		}
 		String summary = UserDB.printUserBalance(username);
+		summary = summary.replaceAll("\n","<BR>");
 		request.setAttribute("viewsummary", summary);
 //		request.removeAttribute("withdrawmoney");
 //		request.removeAttribute("depositmoney");

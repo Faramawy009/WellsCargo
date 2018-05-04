@@ -2,12 +2,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewAccountServlet extends HttpServlet
+public class DeleteAccountServlet extends HttpServlet
 {
 
 	@Override
@@ -15,45 +14,32 @@ public class NewAccountServlet extends HttpServlet
 										 HttpServletResponse response)
 					throws IOException,ServletException
 	{
-//		request.removeAttribute("withdrawmoney");
-//		request.removeAttribute("depositmoney");
-//		request.removeAttribute("transfermoney");
 		String username = (String)request.getSession().getAttribute("username");
 		if (username == null || username.equals("")){
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
 		}
 		String accName = (String) request.getParameter("accountname");
-		String accType = (String) request.getParameter("accounttype");
-		Account.AccountType accountType = null;
-		try {
-			accountType = Account.AccountType.valueOf(accType);
-		} catch (Exception e) {
-			request.setAttribute("newaccount", "Invalid Request!");
+		if (UserDB.getUser(username).getAccounts().get(accName).getBalance() != 0){
+
+			request.setAttribute("deleteaccount", "Error...Account Not Empty !!");
 			request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
+			return;
 		}
-		boolean transactionComplete = UserDB.addAccount(username, accName, accountType);
+
+		UserDB.removeAccount(username, accName);
 		String summary = UserDB.printUserBalance(username);
 		summary = summary.replaceAll("\n","<BR>");
 		List<String> accountNames = new ArrayList<>(UserDB.getUser(username).getAccounts().keySet());
 		request.getSession().setAttribute("accountnames", accountNames);
 		request.setAttribute("viewsummary", summary);
-		if(transactionComplete) {
-			request.setAttribute("newaccount", "You have added a new account: " + accName);
-		}
-		else {
-			request.setAttribute("newaccount", "Account name already exists!");
-		}
+		request.setAttribute("deleteaccount", "Account " + accName + " was deleted");
 		try {
 			UserDB.writeDB("Users.db");
 			System.out.println("DB Written Successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-    String historyFileName = "./history/"+username+"-"+accName;
-		File file = new File(historyFileName);
-		file.createNewFile();
 		request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
 	}
 

@@ -18,10 +18,20 @@
     List<String> accountNames = (List<String>) request.getSession().getAttribute("accountnames");
     List<String> accountTypes = (List<String>) request.getSession().getAttribute("accounttypes");
 %>
-<h1> View Summary:</h1>
+<%
+    String username = (String) request.getSession().getAttribute("username");
+    if(!(username == null || username.equals(""))) {
+%>
+<FORM  METHOD=POST  ACTION="/Logout">
+    <INPUT  TYPE="Submit"  VALUE = "Logout"></TD>
+</FORM>
+<%
+    }
+%>
+<BR>
 <FORM  METHOD=POST  ACTION="/Summary">
     <BR>
-    <INPUT  TYPE="Submit"  VALUE = "View Balance"></TD>
+    <INPUT  TYPE="Submit"  VALUE = "View Balance Summary"></TD>
 </FORM>
 <BR>
 <%
@@ -29,6 +39,46 @@
     if(!(viewSummaryResponse == null || viewSummaryResponse.isEmpty())) {
 %>
 <h2><%=viewSummaryResponse%></h2>
+<%
+    }
+%>
+<BR>
+<h1> View Account History:</h1>
+<BR>
+<FORM  METHOD=POST  ACTION="/History">
+    <TR>
+        <TD>Account:</TD>
+        <%
+            if(accountNames == null || accountNames.isEmpty()){
+        %>
+        <TD><h4>Accounts you create will appear here.</h4><TD>
+            <%
+                    }
+                    else{
+                %>
+        <TD><select name="accountname" value="">
+            <%
+                for(String account : accountNames){
+            %>
+            <option> <%=account%> </option>
+            <%
+                }
+            %>
+        </select></TD>
+        <%
+            }
+        %>
+    </TR>
+    <BR><BR>
+    <INPUT  TYPE="Submit"  VALUE = "Submit"></TD>
+    <INPUT  TYPE="Reset"  VALUE="Clear"></TD>
+</FORM>
+<BR>
+<%
+    String viewHistoryResponse = (String) request.getAttribute("viewhistory");
+    if(!(viewHistoryResponse == null || viewHistoryResponse.isEmpty())) {
+%>
+<h2><%=viewHistoryResponse%></h2>
 <%
     }
 %>
@@ -50,7 +100,7 @@
                     }
                     else{
                 %>
-            <TD><select name="accountnames" value="">
+            <TD><select name="accountname" value="">
                 <%
                         for(String account : accountNames){
                 %>
@@ -98,7 +148,7 @@
             }
             else{
             %>
-            <TD><select name="accountnames" value="">
+            <TD><select name="accountname" value="">
                 <%
                     for(String account : accountNames){
                 %>
@@ -202,7 +252,7 @@
 <FORM  METHOD=POST  ACTION="/NewAccount">
     <TABLE>
         <TR>
-            <TD>$ Account Type:</TD>
+            <TD>Account Type:</TD>
             <TD><select name="accounttype" value="">
                 <%
                     for(String account : accountTypes){
@@ -235,6 +285,39 @@
 %>
 <BR>
 
+
+<h1> Delete an Account:</h1>
+<FORM  METHOD=POST  ACTION="/DeleteAccount">
+    <TABLE>
+        <TR>
+            <TD>Account Name:</TD>
+            <TD><select name="accountname" value="">
+                <%
+                    for(String account : accountNames){
+                %>
+                <option value="<%=account%>"> <%=account%> </option>
+                <%
+                    }
+                %>
+            </select></TD>
+
+        </TR>
+    </TABLE>
+    <BR>
+    <INPUT  TYPE="Submit"  VALUE = "Submit"></TD>
+    <INPUT  TYPE="Reset"  VALUE="Clear"></TD>
+
+</FORM>
+<BR>
+<%
+    String deleteAccountResponse = (String) request.getAttribute("deleteaccount");
+    if(!(deleteAccountResponse == null || deleteAccountResponse.isEmpty())) {
+%>
+<h2><%=deleteAccountResponse%></h2>
+<%
+    }
+%>
+<BR>
 
 </BODY>
 </HTML>

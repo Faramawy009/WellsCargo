@@ -2,7 +2,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class WithdrawMoneyServlet extends HttpServlet
 {
@@ -20,10 +23,10 @@ public class WithdrawMoneyServlet extends HttpServlet
 		String reqAmount = (String)request.getParameter("amount");
 
 		int amount = Integer.parseInt(reqAmount);
-		String accName = (String) request.getParameter("accountnames");
+		String accName = (String) request.getParameter("accountname");
 		boolean transactionComplete = UserDB.withdraw(username, accName, amount);
 		String summary = UserDB.printUserBalance(username);
-
+		summary = summary.replaceAll("\n","<BR>");
 		request.setAttribute("viewsummary", summary);
 		if(transactionComplete) {
 			request.setAttribute("withdrawmoney", "You have withdrawn $" + amount + " From the account " + accName);
@@ -40,6 +43,28 @@ public class WithdrawMoneyServlet extends HttpServlet
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+
+		try {
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("./history/"+username+"-"+accName, true)));
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			out.println("Withdraw: "+amount+" from: "+accName + "     "+dateFormat.format(date));
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		try(FileWriter fw = new FileWriter("./history/"+username+"-"+accName, true);
+//				BufferedWriter bw = new BufferedWriter(fw);
+//				PrintWriter out = new PrintWriter(bw))
+//		{
+//			out.println("Withdraw: "+amount+" from: "+accName);
+//			fw.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
 		request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
 	}
 

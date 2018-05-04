@@ -13,6 +13,17 @@
 
 <BODY>
     <h1 style="text-align: center; background-color: #8B0000; color: goldenrod">Wells Cargo</h1>
+    <%
+        String username = (String) request.getSession().getAttribute("username");
+        if(!(username == null || username.equals(""))) {
+        	%>
+    <FORM  METHOD=POST  ACTION="/Logout">
+         <INPUT  TYPE="Submit"  VALUE = "Logout"></TD>
+    </FORM>
+    <%
+        }
+    %>
+
     <h1> Existing User</h1>
     <FORM  METHOD=POST  ACTION="/Login">
 

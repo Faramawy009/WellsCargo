@@ -46,7 +46,7 @@ public class UserDB implements Serializable{
 		return users.get(userName).addAccount(accName, accType);
 	}
 
-	public static int removeAccount(String userName, String accName, Account.AccountType accType) {
+	public static int removeAccount(String userName, String accName) {
 		User holder = users.get(userName);
 		Account acc = holder.getAccounts().get(accName);
 		if(acc == null) {

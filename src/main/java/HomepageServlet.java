@@ -41,8 +41,10 @@ public class HomepageServlet extends HttpServlet
 			return;
 		}
 
-		String accountSummary = UserDB.printUserBalance(username);
-		sendPage(response, accountSummary);
+		String summary = UserDB.printUserBalance(username);
+		summary = summary.replaceAll("\n","<BR>");
+		request.setAttribute("viewsummary", summary);
+		request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
 	}
 
 	private void sendPage(HttpServletResponse reply,String result)

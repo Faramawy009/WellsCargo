@@ -41,8 +41,17 @@ public class LoginServlet extends HttpServlet
 
 		request.getSession().setAttribute("username", userName);
 			// redirect to homepage.jsp
-			request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
-//			sendValidPage(userName, response);
+
+
+		// make history directory
+		File dir = new File("history");
+
+		// if the directory does not exist, create it
+		if (!dir.exists()) {
+			dir.mkdir();
+		}
+		request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
+//	sendValidPage(userName, response);
 	}
 
 	private void sendPage(HttpServletResponse reply,String result)
