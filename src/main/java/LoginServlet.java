@@ -1,4 +1,7 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -8,9 +11,9 @@ public class LoginServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException {
 		try {
-			UserDB.readDB("/home/elfar009/Users.db");
+			UserDB.readDB("Users.db");
 		} catch (Exception e) {
-//		e.printStackTrace();
+		e.printStackTrace();
 			System.out.println("No DB Found!\n\n");
 		}
 
@@ -20,7 +23,8 @@ public class LoginServlet extends HttpServlet
 										 HttpServletResponse response)
 					throws IOException,ServletException
 	{
-
+		List<String> accountTypes = Arrays.asList(Arrays.toString(Account.AccountType.values()).replaceAll("^.|.$", "").split(", "));
+		request.getSession().setAttribute("accounttypes", accountTypes);
 			String userName = request.getParameter("username");
 			String password = request.getParameter("password");
 			User loggedIn = UserDB.getUser(userName);
@@ -32,9 +36,13 @@ public class LoginServlet extends HttpServlet
 				sendPage(response, "Incorrect Password");
 				return;
 			}
-			request.setAttribute("username", userName);
+		List<String> accountNames = new ArrayList<>(UserDB.getUser(userName).getAccounts().keySet());
+		request.getSession().setAttribute("accountnames", accountNames);
+
+		request.getSession().setAttribute("username", userName);
 			// redirect to homepage.jsp
-			sendValidPage(userName, response);
+			request.getRequestDispatcher("/WEB-INF/homepage.jsp").forward(request, response);
+//			sendValidPage(userName, response);
 	}
 
 	private void sendPage(HttpServletResponse reply,String result)
@@ -54,22 +62,6 @@ public class LoginServlet extends HttpServlet
 		out.println("</HTML>");
 		out.flush();
 	}
-
-	private void sendValidPage(String username, HttpServletResponse reply)
-					throws IOException
-	{
-		User currentUser = UserDB.getUser(username);
-		reply.setContentType("text/HTML");
-		PrintWriter out = reply.getWriter();
-		out.println(HTMLStrings.MAIN_HEADER);
-		out.println(HTMLStrings.VIEW_BALANCE_FORM);
-		out.println(HTMLStrings.WITHDRAW_FORM_START);
-		for(String s:currentUser.getAccounts().keySet())
-			out.println("<option value="+s+" >" + s + "</option>");
-		out.println(HTMLStrings.WITHDRAW_FORM_END);
-		out.println(HTMLStrings.MAIN_FOOTER);
-	}
-
 }
 
 

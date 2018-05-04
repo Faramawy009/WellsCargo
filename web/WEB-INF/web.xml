@@ -23,7 +23,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet/Login</url-pattern>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -32,7 +32,47 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/RegisterServlet/Register</url-pattern>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DepositMoneyServlet</servlet-name>
+        <servlet-class>DepositMoneyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DepositMoneyServlet</servlet-name>
+        <url-pattern>/Deposit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>WithdrawMoneyServlet</servlet-name>
+        <servlet-class>WithdrawMoneyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WithdrawMoneyServlet</servlet-name>
+        <url-pattern>/Withdraw</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewSummaryServlet</servlet-name>
+        <servlet-class>ViewSummaryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSummaryServlet</servlet-name>
+        <url-pattern>/Summary</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NewAccountServlet</servlet-name>
+        <servlet-class>NewAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewAccountServlet</servlet-name>
+        <url-pattern>/NewAccount</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>TransferMoneyServlet</servlet-name>
+        <servlet-class>TransferMoneyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransferMoneyServlet</servlet-name>
+        <url-pattern>/Transfer</url-pattern>
     </servlet-mapping>
 
 </web-app>

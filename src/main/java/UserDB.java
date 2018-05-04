@@ -8,7 +8,7 @@ public class UserDB implements Serializable{
 	public static int ACCOUNT_NOT_ZERO_ERROR = 2;
 	public static int INSUFFICIENT_FUNDS = 3;
 	public static int SUCCESS = 0;
-	private static HashMap<String, User> users;
+	public static HashMap<String, User> users;
 
 	static {
 		users = new HashMap<>();
@@ -21,7 +21,8 @@ public class UserDB implements Serializable{
 
 	public static void writeDB (String filePath) throws Exception {
 		File file = new File(filePath);
-		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+//		file.createNewFile();
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file,false));
 		out.writeObject(users);
 	}
 
@@ -70,7 +71,7 @@ public class UserDB implements Serializable{
 
 	public static boolean withdraw(String userName, String accName, int amount) {
 		Account acc = users.get(userName).getAccounts().get(accName);
-		if(acc == null) {
+		if(acc == null || acc.getBalance() < amount) {
 			return false;
 		}
 		acc.setBalance(acc.getBalance() - amount);

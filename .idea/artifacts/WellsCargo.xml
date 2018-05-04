@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="WellsCargo">
+    <output-path>$PROJECT_DIR$/out/artifacts/WellsCargo</output-path>
+    <root id="archive" name="WellsCargo.war">
+      <element id="artifact" artifact-name="SimpleMavenWebProject:Web exploded" />
+    </root>
+  </artifact>
+</component>

@@ -13,12 +13,13 @@
 <HEAD>
 
 <BODY>
+<h1 style="text-align: center; background-color: #8B0000; color: goldenrod">Wells Cargo</h1>
 <%
-    List<String> accountNames = (List<String>) request.getAttribute("accountnames");
-    List<String> accountTypes = (List<String>) request.getAttribute("accountypes");
+    List<String> accountNames = (List<String>) request.getSession().getAttribute("accountnames");
+    List<String> accountTypes = (List<String>) request.getSession().getAttribute("accounttypes");
 %>
 <h1> View Summary:</h1>
-<FORM  METHOD=POST  ACTION="/ViewSummaryServlet">
+<FORM  METHOD=POST  ACTION="/Summary">
     <BR>
     <INPUT  TYPE="Submit"  VALUE = "View Balance"></TD>
 </FORM>
@@ -33,7 +34,7 @@
 %>
 <BR>
 <h1> Withdraw Money:</h1>
-<FORM  METHOD=POST  ACTION="/WithdrawMoneyServlet">
+<FORM  METHOD=POST  ACTION="/Withdraw">
     <TABLE>
         <TR>
             <TD>$ Amount:</TD>
@@ -44,7 +45,7 @@
                 <%
                     if(accountNames == null || accountNames.isEmpty()){
                 %>
-                <p>Accounts you create will appear here.</p>
+            <TD><h4>Accounts you create will appear here.</h4><TD>
                 <%
                     }
                     else{
@@ -54,9 +55,11 @@
                         for(String account : accountNames){
                 %>
                 <option> <%=account%> </option>
+                <%
+                        }
+                %>
             </select></TD>
             <%
-                        }
                     }
             %>
         </TR>
@@ -79,7 +82,7 @@
 <BR>
 
 <h1> Deposit Money:</h1>
-<FORM  METHOD=POST  ACTION="/DepositMoneyServlet">
+<FORM  METHOD=POST  ACTION="/Deposit">
     <TABLE>
         <TR>
             <TD>$ Amount:</TD>
@@ -90,7 +93,7 @@
             <%
                 if(accountNames == null || accountNames.isEmpty()){
             %>
-            <p>Accounts you create will appear here.</p>
+            <TD><h4>Accounts you create will appear here.</h4><TD>
             <%
             }
             else{
@@ -100,9 +103,11 @@
                     for(String account : accountNames){
                 %>
                 <option> <%=account%> </option>
+                <%
+                    }
+                %>
             </select></TD>
             <%
-                    }
                 }
             %>
         </TR>
@@ -112,10 +117,19 @@
     <INPUT  TYPE="Reset"  VALUE="Clear"></TD>
 
 </FORM>
-<BR><BR>
+<BR>
+<%
+    String depositResponse = (String) request.getAttribute("depositmoney");
+    if(!(depositResponse == null || depositResponse.isEmpty())) {
+%>
+<h2><%=depositResponse%></h2>
+<%
+    }
+%>
+<BR>
 
 <h1> Transfer Money:</h1>
-<FORM  METHOD=POST  ACTION="/TransferMoneyServlet">
+<FORM  METHOD=POST  ACTION="/Transfer">
     <TABLE>
         <TR>
             <TD>$ Amount:</TD>
@@ -126,19 +140,21 @@
             <%
                 if(accountNames == null || accountNames.isEmpty()){
             %>
-            <p>Accounts you create will appear here.</p>
+            <TD><h4>Accounts you create will appear here.</h4><TD>
             <%
             }
             else{
             %>
-            <TD><select name="accountnames" value="">
+            <TD><select name="sourcename" value="">
                 <%
                     for(String account : accountNames){
                 %>
                 <option> <%=account%> </option>
+                <%
+                    }
+                %>
             </select></TD>
             <%
-                    }
                 }
             %>
         </TR>
@@ -147,19 +163,21 @@
             <%
                 if(accountNames == null || accountNames.isEmpty()){
             %>
-            <p>Accounts you create will appear here.</p>
+            <TD><h4>Accounts you create will appear here.</h4><TD>
             <%
             }
             else{
             %>
-            <TD><select name="accountnames" value="">
+            <TD><select name="targetname" value="">
                 <%
                     for(String account : accountNames){
                 %>
                 <option> <%=account%> </option>
+                <%
+                    }
+                %>
             </select></TD>
             <%
-                    }
                 }
             %>
         </TR>
@@ -169,10 +187,19 @@
     <INPUT  TYPE="Reset"  VALUE="Clear"></TD>
 
 </FORM>
-<BR><BR>
+<BR>
+<%
+    String transferMoneyResponse = (String) request.getAttribute("transfermoney");
+    if(!(transferMoneyResponse == null || transferMoneyResponse.isEmpty())) {
+%>
+<h2><%=transferMoneyResponse%></h2>
+<%
+    }
+%>
+<BR>
 
 <h1> Create New Account:</h1>
-<FORM  METHOD=POST  ACTION="/NewAccountServlet">
+<FORM  METHOD=POST  ACTION="/NewAccount">
     <TABLE>
         <TR>
             <TD>$ Account Type:</TD>
@@ -180,15 +207,16 @@
                 <%
                     for(String account : accountTypes){
                 %>
-                <option> <%=account%> </option>
+                <option value="<%=account%>"> <%=account%> </option>
+                <%
+                    }
+                %>
             </select></TD>
-            <%
-                }
-            %>
+
         </TR>
         <TR>
             <TD>Account Name:</TD>
-            <TD><INPUT  TYPE="Text"  NAME="accountType"  VALUE=""  SIZE=15></TD>
+            <TD><INPUT  TYPE="Text"  NAME="accountname"  VALUE=""  SIZE=15></TD>
         </TR>
     </TABLE>
     <BR>
@@ -196,7 +224,16 @@
     <INPUT  TYPE="Reset"  VALUE="Clear"></TD>
 
 </FORM>
-
+<BR>
+<%
+    String newAccountResponse = (String) request.getAttribute("newaccount");
+    if(!(newAccountResponse == null || newAccountResponse.isEmpty())) {
+%>
+<h2><%=newAccountResponse%></h2>
+<%
+    }
+%>
+<BR>
 
 
 </BODY>

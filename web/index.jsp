@@ -12,9 +12,11 @@
     <HEAD>
 
 <BODY>
+    <h1 style="text-align: center; background-color: #8B0000; color: goldenrod">Wells Cargo</h1>
+    
 
     <h1> Existing User</h1>
-    <FORM  METHOD=POST  ACTION="/LoginServlet/Login">
+    <FORM  METHOD=POST  ACTION="/Login">
 
         <TABLE>
             <TR>
@@ -35,7 +37,7 @@
 
     <h1> New User</h1>
 
-    <FORM  METHOD=POST  ACTION="/RegisterServlet/Register">
+    <FORM  METHOD=POST  ACTION="/Register">
 
         <TABLE>
             <TR>

@@ -1,27 +1,34 @@
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.HashMap;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class RegisterServlet extends HttpServlet
 {
-
 	@Override
 	public void init() throws ServletException {
 		try {
-			UserDB.readDB("/home/elfar009/Users.db");
+			UserDB.readDB("Users.db");
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("No DB Found!\n\n");
 		}
 
 	}
-
 	public void doPost(HttpServletRequest request,
 										 HttpServletResponse response)
 					throws IOException,ServletException
 	{
+//		File n = new File("s");
+//		ObjectInputStream ois = new ObjectInputStream(getServletContext().getResourceAsStream("/WEB-INF/Users.db"));
+//		getServletContext().resou
+//		try {
+//			UserDB.users = (HashMap<String, User>)ois.readObject();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		String userName = "";
 		try
 		{
@@ -37,6 +44,12 @@ public class RegisterServlet extends HttpServlet
 		catch(NumberFormatException cnfEx)
 		{
 			sendPage(response,"*** Invalid entry! ***");
+		}
+		try {
+			UserDB.writeDB("Users.db");
+			System.out.println("DB Written Successfully");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		sendPage(response,"New User "+userName+" Was Successfully Created.");
 	}
