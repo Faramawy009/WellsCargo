@@ -8,18 +8,10 @@
     </description>
     <display-name>Faramanshawy's Adder</display-name>
 
-    <servlet>
-        <servlet-name>AdderServlet</servlet-name>
-        <servlet-class>AdderServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdderServlet</servlet-name>
-        <url-pattern>/AdderServlet/Adder</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -28,7 +20,7 @@
 
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>RegisterServlet</servlet-class>
+        <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -36,7 +28,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>DepositMoneyServlet</servlet-name>
-        <servlet-class>DepositMoneyServlet</servlet-class>
+        <servlet-class>controller.DepositMoneyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DepositMoneyServlet</servlet-name>
@@ -44,7 +36,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>WithdrawMoneyServlet</servlet-name>
-        <servlet-class>WithdrawMoneyServlet</servlet-class>
+        <servlet-class>controller.WithdrawMoneyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>WithdrawMoneyServlet</servlet-name>
@@ -52,7 +44,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ViewSummaryServlet</servlet-name>
-        <servlet-class>ViewSummaryServlet</servlet-class>
+        <servlet-class>controller.ViewSummaryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewSummaryServlet</servlet-name>
@@ -60,7 +52,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>NewAccountServlet</servlet-name>
-        <servlet-class>NewAccountServlet</servlet-class>
+        <servlet-class>controller.NewAccountServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NewAccountServlet</servlet-name>
@@ -68,7 +60,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>TransferMoneyServlet</servlet-name>
-        <servlet-class>TransferMoneyServlet</servlet-class>
+        <servlet-class>controller.TransferMoneyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TransferMoneyServlet</servlet-name>
@@ -76,7 +68,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
-        <servlet-class>DeleteAccountServlet</servlet-class>
+        <servlet-class>controller.DeleteAccountServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
@@ -84,7 +76,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>LogoutServlet</servlet-class>
+        <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -92,7 +84,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>HistoryServlet</servlet-name>
-        <servlet-class>HistoryServlet</servlet-class>
+        <servlet-class>controller.HistoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HistoryServlet</servlet-name>

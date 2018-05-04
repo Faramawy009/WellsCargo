@@ -4,9 +4,9 @@
 <HEAD>
 
     <META  HTTP-EQUIV="ContentType"  CONTENT="text/HTML">
-    <META HTTP-EQUIV ="Pragma"  CONTENT="no cache">
-    <META HTTP-EQUIV ="Cache-control"  CONTENT="no cache">
-    <META HTTP-EQUIV ="Expires"  CONTENT="0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
     <TITLE>Wells Cargo</TITLE>
     <HEAD>
@@ -23,6 +23,15 @@
     <%
         }
     %>
+    <%
+        String loginErrorResponse = (String) request.getAttribute("loginerror");
+        if(!(loginErrorResponse == null || loginErrorResponse.isEmpty())) {
+    %>
+    <h2 style="color: red"><%=loginErrorResponse%></h2>
+    <%
+        }
+    %>
+    <BR>
 
     <h1> Existing User</h1>
     <FORM  METHOD=POST  ACTION="/Login">
@@ -55,7 +64,7 @@
             </TR>
             <TR>
                 <TD>Password:</TD>
-                <TD><INPUT  TYPE="Text"  NAME="password"  VALUE=""  SIZE=5></TD>
+                <TD><INPUT  TYPE="password"  NAME="password"  VALUE=""  SIZE=5></TD>
             </TR>
         </TABLE>
         <BR>
